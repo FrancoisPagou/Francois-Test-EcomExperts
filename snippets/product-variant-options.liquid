@@ -77,30 +77,17 @@
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
   {%- elsif block.settings.picker_type == 'dropdown' -%}
-    {% comment %} swatches {% endcomment %}
-    {% if option.name == "Color" %}
-      {%- assign current_color = '' -%}
-      {% for variant in product.variants %}
-        {%- assign variant_option = "option" | append: option.position -%}
-        {% if variant[variant_option] == value and current_color != value %}
-          {{ variant.featured_image | image_url: width: 50, height: 50 | image_tag: loading: lazy }}
-          {%- assign current_color = value -%}
-        {% endif %}
-      {% endfor %}
-      {{ variants_available_arr[forloop.index].featured_image }}
-    {% else %}
-      <option
-        value="{{ value | escape }}"
-        {% if option.selected_value == value %}
-          selected="selected"
-        {% endif %}
-      >
-        {% if option_disabled -%}
-          {{- 'products.product.value_unavailable' | t: option_value: value -}}
-        {%- else -%}
-          {{- value -}}
-        {%- endif %}
-      </option>
-    {%- endif -%}
+    <option
+      value="{{ value | escape }}"
+      {% if option.selected_value == value %}
+        selected="selected"
+      {% endif %}
+    >
+      {% if option_disabled -%}
+        {{- 'products.product.value_unavailable' | t: option_value: value -}}
+      {%- else -%}
+        {{- value -}}
+      {%- endif %}
+    </option>
   {%- endif -%}
 {%- endfor -%}
