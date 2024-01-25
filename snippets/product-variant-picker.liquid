@@ -31,6 +31,50 @@
         {{ product.variants | json }}
       </script>
     </variant-radios>
+  {%- elsif block.settings.picker_type == 'color_swatches' -%} 
+    <variant-radios
+      id="variant-radios-{{ section.id }}"
+      class="no-js-hidden"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+      {% if update_url == false %}
+        data-update-url="false"
+      {% endif %}
+      {{ block.shopify_attributes }}
+    >
+      {%- for option in product.options_with_values -%}
+        <fieldset class="js product-form__input">
+          <legend class="form__label">{{ option.name }}</legend>
+            {% if option.name == 'Color' %}
+              {% render 'product-variant-options-swatches', product: product, option: option, block: block %}
+            {% else %}
+              <div class="hidden">
+                {%- for value in option.values -%}
+                  <input
+                    type="radio"
+                    id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                    name="{{ option.name }}"
+                    value="{{ value | escape }}"
+                    form="{{ product_form_id }}"
+                    {% if option.selected_value == value %}
+                      checked
+                    {% endif %}
+                    {% if option_disabled %}
+                      class="disabled"
+                    {% endif %}
+                  >
+                {% endfor %}
+              </div>
+              <select id="DropdownSelect">
+                {% render 'product-variant-options-dropdown', product: product, option: option, block: block %}
+              </select>
+            {% endif %}
+        </fieldset>
+      {%- endfor -%}
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-radios> 
   {%- else -%}
     <variant-selects
       id="variant-selects-{{ section.id }}"

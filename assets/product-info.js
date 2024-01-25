@@ -98,3 +98,13 @@ if (!customElements.get('product-info')) {
     }
   );
 }
+
+/* dropdown option */
+const optionDropdown = document.querySelector('variant-radios #DropdownSelect');
+
+console.log('optionDropdown ', optionDropdown);
+
+optionDropdown.addEventListener('change', event => {
+  let inputId = event.target.options[event.target.selectedIndex].dataset.inputId;
+  optionDropdown.closest('fieldset').querySelector(`#${inputId}`).checked = true;
+});
