@@ -16,7 +16,7 @@ if (!customElements.get('product-form')) {
         this.hideErrors = this.dataset.hideErrors === 'true';
       }
 
-      onSubmitHandler(evt) {
+      async onSubmitHandler(evt) {
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
 
@@ -52,7 +52,31 @@ if (!customElements.get('product-form')) {
 
         config.body = formData;
 
-        fetch(`${routes.cart_add_url}`, config)
+        // Adding addon product
+        if (addOnId !== '') {
+          let data = {
+            'items': [{
+              'id': parseInt(addOnId),
+              'quantity': 1
+            }]
+          };
+          
+          await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+            .then(response => {
+              return response.json();
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        }
+
+        await fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
             if (response.status) {
@@ -83,30 +107,6 @@ if (!customElements.get('product-form')) {
                 cartData: response,
               });
             this.error = false;
-           
-          // Adding addon product
-          if (addOnId !== '') {
-            let data = {
-              'items': [{
-                'id': parseInt(addOnId),
-                'quantity': 1
-              }]
-            };
-            
-            fetch('/cart/add.js', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data)
-              })
-              .then(response => {
-                return response.json();
-              }).then(response => this.cart.renderContents(response))
-              .catch((error) => {
-                console.error('Error:', error);
-              });
-            }
 
             const quickAddModal = this.closest('quick-add-modal');
             if (quickAddModal) {
@@ -121,7 +121,7 @@ if (!customElements.get('product-form')) {
               );
               quickAddModal.hide(true);
             } else {
-              // this.cart.renderContents(response);
+              this.cart.renderContents(response);
             }
           })
           .catch((e) => {
