@@ -31,6 +31,16 @@ if (!customElements.get('product-form')) {
         delete config.headers['Content-Type'];
 
         const formData = new FormData(this.form);
+        const variantId = formData.get('id');
+        let addOnId = '';
+
+        // check if the variant has an add on 
+        if (this.querySelector(`#product-add-on__${variantId}`))
+          addOnId = this.querySelector(`#product-add-on__${variantId}`).value;
+
+        console.log('variantId ', variantId);
+        console.log('addOnId ', addOnId);
+
         if (this.cart) {
           formData.append(
             'sections',
@@ -39,7 +49,34 @@ if (!customElements.get('product-form')) {
           formData.append('sections_url', window.location.pathname);
           this.cart.setActiveElement(document.activeElement);
         }
+
         config.body = formData;
+
+        // Adding addon product
+        if (addOnId !== '') {
+          let data = {
+            'items': [{
+              'id': parseInt(addOnId),
+              'quantity': 1
+            }]
+          };
+          
+          console.log(JSON.stringify(data));
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => {
+            return response.json();
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        }
 
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())

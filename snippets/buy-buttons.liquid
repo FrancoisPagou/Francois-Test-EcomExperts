@@ -60,6 +60,20 @@
           {% endif %}
           class="product-variant-id"
         >
+        {% for variant in product.variants %}
+          {% if variant.metafields.custom.add_on %}
+            {% assign add_on = variant.metafields.custom.add_on.value.selected_or_first_available_variant %}
+            <input type="hidden"
+              id="product-add-on__{{ variant.id }}"
+              value="{{ add_on.id }}"
+            >
+            {% comment %} <input type="hidden"
+              id="add_on_in"
+              name="properties['AddOnId']"
+              value="{{ add_on.id }}"
+            > {% endcomment %}
+          {% endif %}
+        {% endfor %}
 
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}

@@ -48,7 +48,7 @@
   {% if option.name != "Color" %}
     <option
       value="{{ value | escape }}"
-      {% if option.selected_value == value %}
+      {% if value == 'Unselected' %}
         selected="selected"
       {% endif %}
       data-input-id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"

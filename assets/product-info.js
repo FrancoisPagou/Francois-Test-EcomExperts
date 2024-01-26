@@ -99,10 +99,8 @@ if (!customElements.get('product-info')) {
   );
 }
 
-/* dropdown option */
+/* trigger click on input radio */
 const optionDropdown = document.querySelector('variant-radios #DropdownSelect');
-
-console.log('optionDropdown ', optionDropdown);
 
 optionDropdown.addEventListener('change', event => {
   let inputId = event.target.options[event.target.selectedIndex].dataset.inputId;
