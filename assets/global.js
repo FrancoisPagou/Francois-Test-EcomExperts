@@ -1002,7 +1002,7 @@ class VariantSelects extends HTMLElement {
 
   updateURL() {
     if (!this.currentVariant || this.dataset.updateUrl === 'false') return;
-    console.log('currentVariant ', currentVariant);
+    console.log('currentVariant ', this.currentVariant);
     window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
   }
 
