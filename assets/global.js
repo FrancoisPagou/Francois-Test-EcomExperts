@@ -1007,6 +1007,7 @@ class VariantSelects extends HTMLElement {
     console.log('currentVariant ', this.currentVariant);
     if (this.currentVariant.options.includes('Unselected')) {
       document.querySelector('.product-form__buttons .product-form__submit').disabled = false;
+  console.log('button ', document.querySelector('.product-form__buttons .product-form__submit'));
     } else {
       document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
     }
