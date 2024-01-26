@@ -1002,15 +1002,7 @@ class VariantSelects extends HTMLElement {
 
   updateURL() {
     if (!this.currentVariant || this.dataset.updateUrl === 'false') return;
-
     // disable the submit button when size option is Unselected
-    console.log('currentVariant ', this.currentVariant);
-    if (this.currentVariant.options.includes('Unselected')) {
-      document.querySelector('.product-form__buttons .product-form__submit').setAttribute('disabled', 'disabled');
-  console.log('button ', document.querySelector('.product-form__buttons .product-form__submit'));
-    } else {
-      document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
-    }
     window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
   }
 
@@ -1169,6 +1161,8 @@ class VariantSelects extends HTMLElement {
 
     if (disable || this.currentVariant.options.includes('Unselected')) {
       addButton.setAttribute('disabled', 'disabled');
+    console.log('currentVariant ', this.currentVariant);
+
       if (text) addButtonText.textContent = text;
     } else {
       addButton.removeAttribute('disabled');
