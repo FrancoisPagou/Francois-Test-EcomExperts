@@ -106,3 +106,7 @@ optionDropdown.addEventListener('change', event => {
   let inputId = event.target.options[event.target.selectedIndex].dataset.inputId;
   optionDropdown.closest('fieldset').querySelector(`#${inputId}`).checked = true;
 });
+
+window.addEventListener('DOMContentLoaded', event => {
+  optionDropdown.value
+})
