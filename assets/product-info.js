@@ -108,5 +108,6 @@ optionDropdown.addEventListener('change', event => {
 });
 
 window.addEventListener('DOMContentLoaded', event => {
-  console.log('optionDropdown ', optionDropdown.value)
+  console.log('optionDropdown ', optionDropdown.value);
+  document.querySelector('.product-form__submit').setAttribute('disabled', 'disabled');
 })
