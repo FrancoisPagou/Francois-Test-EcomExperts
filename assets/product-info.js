@@ -108,5 +108,5 @@ optionDropdown.addEventListener('change', event => {
 });
 
 window.addEventListener('DOMContentLoaded', event => {
-  optionDropdown.value
+  console.log('optionDropdown ', optionDropdown.value)
 })
