@@ -106,9 +106,8 @@ optionDropdown.addEventListener('change', event => {
   optionDropdown.closest('fieldset').querySelector(`#${inputId}`).checked = true;
 });
 
-// Disable Add button to on refresh
+// Disable Add button on refresh
 window.addEventListener('DOMContentLoaded', event => {
-  console.log('optionDropdown ', optionDropdown.value);
   if (optionDropdown.value == 'Unselected')
     document.querySelector('.product-form__submit').setAttribute('disabled', 'disabled');
 })
