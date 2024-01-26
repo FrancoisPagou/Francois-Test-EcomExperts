@@ -1167,7 +1167,7 @@ class VariantSelects extends HTMLElement {
     const addButtonText = productForm.querySelector('[name="add"] > span');
     if (!addButton) return;
 
-    if (disable) {
+    if (disable || this.currentVariant.options.includes('Unselected')) {
       addButton.setAttribute('disabled', 'disabled');
       if (text) addButtonText.textContent = text;
     } else {
