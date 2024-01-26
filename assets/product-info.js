@@ -111,5 +111,7 @@ optionDropdown.addEventListener('change', event => {
   console.log('button ', document.querySelector('.product-form__buttons .product-form__submit'));
   if (valueSelected == "Unselected") {
     document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
+  } else {
+    document.querySelector('.product-form__buttons .product-form__submit').disabled = false;
   }
 });
