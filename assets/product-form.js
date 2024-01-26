@@ -121,7 +121,7 @@ if (!customElements.get('product-form')) {
               );
               quickAddModal.hide(true);
             } else {
-              this.cart.renderContents(response);
+              // this.cart.renderContents(response);
             }
           })
           .catch((e) => {
