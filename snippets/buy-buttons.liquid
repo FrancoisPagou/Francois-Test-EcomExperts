@@ -67,11 +67,11 @@
               id="product-add-on__{{ variant.id }}"
               value="{{ add_on.id }}"
             >
-            <input type="hidden"
+            {% comment %} <input type="hidden"
               id="add-on"
               name="properties['AddOnId']"
               value="{{ add_on.id }}"
-            >
+            > {% endcomment %}
           {% endif %}
         {% endfor %}
 
