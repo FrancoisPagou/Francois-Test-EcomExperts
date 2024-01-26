@@ -93,8 +93,6 @@ if (!customElements.get('product-form')) {
               }]
             };
             
-            console.log(JSON.stringify(data));
-
             fetch('/cart/add.js', {
               method: 'POST',
               headers: {
@@ -104,12 +102,12 @@ if (!customElements.get('product-form')) {
               })
               .then(response => {
                 return response.json();
-              })
+              }).then(response => this.cart.renderContents(response))
               .catch((error) => {
                 console.error('Error:', error);
               });
             }
-            
+
             const quickAddModal = this.closest('quick-add-modal');
             if (quickAddModal) {
               document.body.addEventListener(
