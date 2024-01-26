@@ -34,12 +34,9 @@ if (!customElements.get('product-form')) {
         const variantId = formData.get('id');
         let addOnId = '';
 
-        // check if the variant has an add on 
+        // check if the variant has an add-on 
         if (this.querySelector(`#product-add-on__${variantId}`))
           addOnId = this.querySelector(`#product-add-on__${variantId}`).value;
-
-        console.log('variantId ', variantId);
-        console.log('addOnId ', addOnId);
 
         if (this.cart) {
           formData.append(
@@ -52,11 +49,11 @@ if (!customElements.get('product-form')) {
 
         config.body = formData;
 
-        // Adding addon product
+        // Adding add-on product
         if (addOnId !== '') {
           let data = {
             'items': [{
-              'id': parseInt(addOnId),
+              'id': addOnId,
               'quantity': 1
             }]
           };
@@ -67,13 +64,13 @@ if (!customElements.get('product-form')) {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-            })
-            .then(response => {
-              return response.json();
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
+          })
+          .then(response => {
+            return response.json();
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
         }
 
         await fetch(`${routes.cart_add_url}`, config)
