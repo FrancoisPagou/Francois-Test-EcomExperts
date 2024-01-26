@@ -108,6 +108,7 @@ optionDropdown.addEventListener('change', event => {
 
   let valueSelected = event.target.value;
   console.log('valueSelected ', valueSelected);
+  console.log('button ', document.querySelector('.product-form__buttons .product-form__submit'));
   if (valueSelected == "Unselected") {
     document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
   }
