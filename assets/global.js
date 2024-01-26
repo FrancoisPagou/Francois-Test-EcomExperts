@@ -1006,7 +1006,7 @@ class VariantSelects extends HTMLElement {
     // disable the submit button when size option is Unselected
     console.log('currentVariant ', this.currentVariant);
     if (this.currentVariant.options.includes('Unselected')) {
-      document.querySelector('.product-form__buttons .product-form__submit').disabled = false;
+      document.querySelector('.product-form__buttons .product-form__submit').setAttribute('disabled', 'disabled');
   console.log('button ', document.querySelector('.product-form__buttons .product-form__submit'));
     } else {
       document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
