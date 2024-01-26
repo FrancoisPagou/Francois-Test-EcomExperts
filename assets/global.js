@@ -1002,7 +1002,14 @@ class VariantSelects extends HTMLElement {
 
   updateURL() {
     if (!this.currentVariant || this.dataset.updateUrl === 'false') return;
+
+    // disable the submit button when size option is Unselected
     console.log('currentVariant ', this.currentVariant);
+    if (this.currentVariant.options.includes('Unselected')) {
+      document.querySelector('.product-form__buttons .product-form__submit').disabled = false;
+    } else {
+      document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
+    }
     window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
   }
 
