@@ -107,11 +107,11 @@ optionDropdown.addEventListener('change', event => {
   optionDropdown.closest('fieldset').querySelector(`#${inputId}`).checked = true;
 
   let valueSelected = event.target.value;
-  console.log('valueSelected ', valueSelected);
+  // console.log('valueSelected ', valueSelected);
   console.log('button ', document.querySelector('.product-form__buttons .product-form__submit'));
-  if (valueSelected == "Unselected") {
-    document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
-  } else {
-    document.querySelector('.product-form__buttons .product-form__submit').disabled = false;
-  }
+  // if (valueSelected == "Unselected") {
+  //   document.querySelector('.product-form__buttons .product-form__submit').disabled = true;
+  // } else {
+  //   document.querySelector('.product-form__buttons .product-form__submit').disabled = false;
+  // }
 });
