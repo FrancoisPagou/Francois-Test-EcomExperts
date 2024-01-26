@@ -98,3 +98,16 @@ if (!customElements.get('product-info')) {
     }
   );
 }
+
+/* trigger click on input radio */
+const optionDropdown = document.querySelector('variant-radios #DropdownSelect');
+optionDropdown.addEventListener('change', event => {
+  let inputId = event.target.options[event.target.selectedIndex].dataset.inputId;
+  optionDropdown.closest('fieldset').querySelector(`#${inputId}`).checked = true;
+});
+
+// Disable Add button on refresh
+window.addEventListener('DOMContentLoaded', event => {
+  if (optionDropdown.value == 'Unselected')
+    document.querySelector('.product-form__submit').setAttribute('disabled', 'disabled');
+})

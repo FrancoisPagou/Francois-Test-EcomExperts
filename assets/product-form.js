@@ -16,7 +16,7 @@ if (!customElements.get('product-form')) {
         this.hideErrors = this.dataset.hideErrors === 'true';
       }
 
-      onSubmitHandler(evt) {
+      async onSubmitHandler(evt) {
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
 
@@ -31,6 +31,13 @@ if (!customElements.get('product-form')) {
         delete config.headers['Content-Type'];
 
         const formData = new FormData(this.form);
+        const variantId = formData.get('id');
+        let addOnId = '';
+
+        // check if the variant has an add-on 
+        if (this.querySelector(`#product-add-on__${variantId}`))
+          addOnId = this.querySelector(`#product-add-on__${variantId}`).value;
+
         if (this.cart) {
           formData.append(
             'sections',
@@ -39,9 +46,34 @@ if (!customElements.get('product-form')) {
           formData.append('sections_url', window.location.pathname);
           this.cart.setActiveElement(document.activeElement);
         }
+
         config.body = formData;
 
-        fetch(`${routes.cart_add_url}`, config)
+        // Adding add-on product
+        if (addOnId !== '') {
+          let data = {
+            'items': [{
+              'id': addOnId,
+              'quantity': 1
+            }]
+          };
+          
+          await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => {
+            return response.json();
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        }
+
+        await fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
             if (response.status) {
@@ -72,6 +104,7 @@ if (!customElements.get('product-form')) {
                 cartData: response,
               });
             this.error = false;
+
             const quickAddModal = this.closest('quick-add-modal');
             if (quickAddModal) {
               document.body.addEventListener(
