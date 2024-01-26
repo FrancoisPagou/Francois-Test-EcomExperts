@@ -52,32 +52,6 @@ if (!customElements.get('product-form')) {
 
         config.body = formData;
 
-        // Adding addon product
-        if (addOnId !== '') {
-          let data = {
-            'items': [{
-              'id': parseInt(addOnId),
-              'quantity': 1
-            }]
-          };
-          
-          console.log(JSON.stringify(data));
-
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          })
-          .then(response => {
-            return response.json();
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-        }
-
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
@@ -109,6 +83,33 @@ if (!customElements.get('product-form')) {
                 cartData: response,
               });
             this.error = false;
+           
+          // Adding addon product
+          if (addOnId !== '') {
+            let data = {
+              'items': [{
+                'id': parseInt(addOnId),
+                'quantity': 1
+              }]
+            };
+            
+            console.log(JSON.stringify(data));
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+              })
+              .then(response => {
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+            }
+            
             const quickAddModal = this.closest('quick-add-modal');
             if (quickAddModal) {
               document.body.addEventListener(
